@@ -19,13 +19,14 @@ testPromise
     .catch(console.log);
 
 // 3. Promise chaining
-const fetchNumber = new Promise((resolve, reject) => {
+const fetchNumber: Promise<number> = new Promise((resolve, reject) => {
     setTimeout(() => resolve(1), 1000);
 });
 
-const fetchReturn = ()  => new Promise((resolve, reject) => {
+const fetchReturn = (): Promise<number>  =>  new Promise((resolve, reject) => {
     setTimeout(() => resolve(1), 1500);
 });
+
 
 fetchNumber
     .then(num => num * 2)
@@ -38,21 +39,30 @@ fetchNumber
     .then(num => console.log(num));
     
 
-fetchReturn().then(console.log)
+// fetchReturn()
+//     .then(num => num * 2)
+//     .then(num => num * 3)
+//     .then(num => {
+//         return new Promise((resolve, reject) => {
+//             setTimeout(() => resolve(num - 1), 1000);
+//         });
+//     })
+//     .then(num => console.log(num));
+
 
 // 4. Error Handling
-const getHen = () => 
+const getHen = (): Promise<string> => 
     new Promise((resolve, reject) => {
         setTimeout(() => resolve('닭'), 1000);
     });
 
-const getEgg = hen => 
+const getEgg = (hen: string): Promise<string> => 
     new Promise((resolve, reject) => {
         // setTimeout(() => resolve(`${hen} => 달걀`), 1000);
         setTimeout(() => reject(new Error(`${hen} => 달걀`)), 1000);
     });
 
-const cook = egg => 
+const cook = (egg: string): Promise<string> => 
     new Promise((resolve, reject) => {
         setTimeout(() => resolve(`${egg} => 프라이`), 1000);
     });
